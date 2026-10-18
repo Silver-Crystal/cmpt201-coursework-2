@@ -1,0 +1,126 @@
+portal, u are captured by an evil ai, and the ai is controlling panels.
+u have a gun, u shoot once, u get one portal, u shoot it to another place, then we get the other end of the portal.
+Imagine the 
+imagine tissue paper, and then we ask for memory, then the os gives us some memory(behind the tissue), so when 
+we are using  the memory, we try writing to memory that doesn't exist ?
+seg fault, u accessed memory that doesn't exist.
+
+
+Virtual memory is one of the most important OS concepts.
+  video games rule- no, it shows the power of abstraction
+
+
+Memory Layout in the early days
+  The entire memory was divided into two:
+  OS and program.
+    could only......
+
+
+
+  Memory was divided into
+    fixed size regions 
+    had to do a lot of innovation, relative to each other yada yada..
+    Problems: 
+      one program was bigger then the rest ? cant do anything, fixed size, then wasted space + need more space.
+
+      + no protection/isolation across processes:
+        
+
+Address-Based Memory Operations
+  variables are a convenience for programmers:
+    variables don't really exist, memory does
+    the computer really works on the memory
+    most instructions reads from or write to memory.
+      compiler knows the mapping from variable to memory
+  Random Access Memory (RAM) (imagine u had random security smth, doesnt sound too good cause its random)
+    All adderss are equally fast to access.(thats why random instead of sequential)
+    Any single location, can read equally fast.
+    if u have a hard drive, u have to wait for the reading head to move to hte location and then the cd is moving.
+      the outer edge can be read faster then the inner edge ?
+
+
+Locality:
+  At any given moment, a program is likely to be accessing
+    only a small part of its memory.
+  Code:
+    Mostly accessed sequentially.
+    Loops and 'if' (branches) jump around only a little usually.
+  Data:
+    video editing is memory intensive, and we need to load everything into memory(the whole video)
+    a lot of programs that we write end up using the same data repeatedly.
+  ..Temporal locality:
+    recently used data is likely to be reused (i.e., loops)
+  ..Spatial locality:
+    governed by the idea that the next data we use is probably nearby previous data you used(e.g., an array/struct)
+    (linked list violate spatial locality).
+  
+Understanding memory Solutions.
+  Fundamental Properties of Memory use
+
+
+Virtual memory is a mechanism to enable:
+  i).. physical memory sharing for multiple processes
+  ii).. Isolation of each process's memory access
+
+a process uses virtual memory instead of physical memory
+
+all memory discussed so far ... has been virtual memory!
+
+program break-> red line.
+
+want to use virtual memory as much as possbile so it isolates us from the hardware.
+
+there are no *real* walls, they are an illusion.
+
+operations on areas with physical panels work;
+  (we can access it, theres no problem, but if we do that for something that is not therem we get page fault)
+
+
+each process.. get its own(virtual) address space.
+
+everything we do is in the virtual space
+
+when we are playing a game, in a stage, we do not
+
+
+os can swap to a file on disk areas that have not recently  been used.
+
+interesting way to hack a program.
+store ur password across a page break.
+cause the os to get rid of this page.
+then try and check ur password.
+
+side channel attack.
+they were attacking password-checking systems.
+if they weren't hashed and stuff.
+
+Address Translation.
+pointer always points at the same address space.
+Process knows virtual, hardware needs physical address.
+for addresses, we will say, this is page x(6) and i wanna talk about 1 sepcific byte(100th maybe).
+
+Virtual memory is.. divided into regions called pages.
+Each page is mapped .... to a physical memory "page frame" or just "frame"
+
+only need to translate page number.
+
+translation tables.
+
+my frame 
+
+
+larger frame size-> swap less
+
+might be wasting  a lot of space(as we dont use all 4mb)
+
+
+16KB virtual address space, page size-> 4K
+need 4 pages.
+
+
+physical memory divided into page frames(or frames)
+  same size as pages.
+
+  Example:
+  8KB of meory with 4KB page size = 2 frames (#'s in binary)'
+

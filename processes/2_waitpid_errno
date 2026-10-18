@@ -1,0 +1,78 @@
+the first argument will always be the argument, 
+
+wait waits on a child process's termination and obtains its status
+
+(the exit code), did the program crash if yes, why?
+
+we'll usually use waitpid, but refer as wait()
+
+Common
+
+pid_t pid = fork();
+if (pid != 0) {
+
+    // Parent waits for child process to finish 
+    if (waitpid(pid, ...) == -1 ) {
+
+      }
+  }
+
+
+
+wait has 1 argument (wstatus) -> hangs until a child returns
+
+pid_t waitpid(pid_t pid, int * _Nullable wstatus, int options)
+
+  pid
+    PID to wait on or -1 for any child 
+  wstatus
+    pointer to an int to store. exit status of process
+    _Nullable tells reader OK to be NULL
+  options
+    we'll leave as 0; can specify non-blocking (don't wait)
+    e.g., WNOHANG
+
+will need to start using this in a8
+
+waitpid() takes a pointer for wstatus
+  Calling code (e.g., main())
+
+  waitpid() given a pointer to this space
+  waitpid writes an answer into that space
+
+
+an output paramter.
+
+pid_t pid = fork();
+if (pid) {
+    int wstatus = 0;
+    if (waitpid(pid, &wstatus, 0) == -1) {
+        perror("waitpid");
+        exit(EXIT_FAILURE);
+      }
+  }
+Effectively, main declares a variable so waitpid() has somewhere to write info; called an.. output parameter 
+
+
+when we don't care about the status of the process, why it failed, then we can just pass NULL.
+if we care about that information, then we use an output parameter.
+
+Why did the child terminate?
+
+(wstatus(): is a complicated value)
+wstatus is a complex return value, there are many values there.
+we use macros to help us interpret it 
+Normally: exit() or return from main
+
+if (WIFEXITED(wstatus)) {
+    printf("Reason: %d\n", WEXITSTATUS(wstatus));
+  }
+
+the two signals we care about, sigint(ctrl + c) and segfault
+
+- Terminated by signal?
+if (WIFSIGNALED(wstatus)) {
+    printf("Terminated by signal: %s\n", )
+  }
+
+

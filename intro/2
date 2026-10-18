@@ -1,0 +1,240 @@
+systems programming-> low level programming that directly interacts with hardware or the OS, often using the syscall interface.
+
+
+
+2 Fundamental Components in Computing:
+	Computation:
+	Handled by the Central Processing Unit (CPU)
+	Data:
+	Handled by memory (main meory (RAM) and storage)
+
+
+von Neummann architecture.
+	We can fetch data from memory, and give it to the cpu
+	pupose of motherboard, connect the cpu, the memory, 
+
+	(input out could be from the usb where we could put cards and so on -> pci cards).
+
+
+	for a long time, moore's low corresponded to performance.
+	but it started tapering off near 2005
+
+	more cores instead.
+	but we can not say, this is bubble sort, and it doubles every 2 years.
+	(now the cores double every 18 months, so we need parallelism instead)
+
+
+"Solve" speed gap between CPU and memory access
+	-  .. Registers: 
+		very small memory inside CPU, hardcoded, can store variables, hold data items from memory.
+		Very close, very fast.
+Add cache
+	- Much larger in size then registers, but much smaller than memory.
+	- Quite close (physical distance) to CPU, so.. faster access times.
+	- Nowadays processors have many caches.
+
+	(the only real time when u want to use a linked list is.... he doesn't know either)(should always use array due to the caches)
+
+Desktop CPU today..
+
+Memory Hierarchy
+	in an ideal world, it can be cheap, fast and .... pick two
+
+	We want the CPU to feel like it has access to..
+	a huge amount of (cheap) fast memory.
+		(we want a lot of 'memory')
+
+	bottom, tape, slowest, (talking of terrabytes of data), while in the cache(?) registers(?), are in megabytes.
+
+	Trade-offs
+	-cost
+	-distance and access speed
+		faster means closer to cpu(the tape that is over in the next room, is clearly further away)
+	-Persistence
+		"Commit" means moving data from memory to disk;
+		i.e changing state of data from temporary to permanent.
+	- Reliability
+	(SSD's are designed to have bad sectors)
+
+
+CPU Architectures
+	Instruction set architectures(ISA)
+		code compiled for one isa can not be used in other.
+	
+
+
+
+32 vs 64 bit Register Size Implications
+	Big Computations:
+		In 32 bit, can do 64, but might take multiple clock cycles.
+
+	..General Register width = address width
+		(32 bit uses 32 bit pionters and 64 bit uses 64 bit pointers).
+		the registers are going to be of that size(?)
+
+		special registers that are specifically designed for specific purposes
+		(so isa/rsa defines how many we have, so will say u have 8 or 16 256 bit wide registers
+
+		4 billions 4 billion
+
+		8 bit, we did contortions to be able to access more
+		32 bit, it was good for a while, then 4gb limit, and that was the end of that
+		64bit, not running out of memory any time soon.
+
+Memory
+	Memory made up of bytes ( 1 byte = 8 bits)
+		Each byte has an address
+
+		sometimes when u go to 64 bits, it might take up more memory, cause for instance, the pointers might take double the memory. architecture is designed (in a 4 byte,32 bits system, it pulls in 4 bytes of data.
+		(even if we need 1)
+half a byte is nibble
+(can i have a byte of ur hotdog,no you can have a nibble) (not really)
+
+
+
+What is the OS?
+	Operating System(OS)
+		... Central software managing the computer's resources.
+	OS includes:
+		- ... Kernel:
+			Main part that actively manages resources.
+		- Supporting tools:
+			such as GUI, command line.
+
+What does a Kernel do?
+	Kernel's Role
+		- .. Resource management
+			many programs want to access the hardware at the same time
+			kernel manages (mediates) access
+		- ..Program control
+			kernle controls programs (running , stopping etc)
+		- .. Protection
+			the kernel provides protection(isolation) for users and programs.
+				E.g., users can't access each other's data
+				E.g., programs can't interfere with each other's execution.
+
+			'your program has done an illegal dereference to a null pointer or a to a pointer that it should not dererference, reporting to microsoft'
+			
+	
+Event-Driven
+	When does a kernel do some work?
+		- Generally, the oS lets other programs run and waits for soemthing it needs to do.
+		- The kernels is .. event driven:
+			it responds to events.
+			(so lets say 7 ms timer, if we make a sys call, it wakes up and does that, otherwise wakes up at 7ms, pauses our program, does wtv it wants to do, and then resumes our program).
+
+	Events can be:
+		- ..Hardware interrupts
+			a hardware event like mouse
+
+
+User Mode vs. Kernel Mode
+(why is kernel privileged, to do things that i can't, we are both doing the same thing, running instructions)
+	Privilege mode of CPU execution
+		-Kernel mode runs the OS kernel; allows full privilege and full access to the hardware.
+		Often called "Ring 0"
+		- User Mode runs applications:
+		.. cannot execute "privileged instructions":
+		e.g., instructions that allow direct access to hardware
+		e.g., access to certain regions of memory.
+
+Root user(aside)
+(has nothing to do with ring 0 and the OS)(sudo, tells linux that i am a privileged user, [nth to do with kernel space] purely user level
+a driver, running as a part of the kernel.
+
+'here's a clean, very clear ...' just kidding :p
+
+
+
+Important terms in the Kernel
+	System (sub system)
+		Device drivers: every device needs a device driver to control it.
+
+		E.g., network card device driver talks to hardware to send/recieve data to/from the physical network. (if usb contains the driver and we are just directly installing/loading, we might load a faulty driver)
+(malicious driver ??
+	
+	Storage
+		-File systems, and VFS (Virtual File System).
+	VFS is an interface:
+		..data structures and operations that a file system should support
+		e.g.,read and write.
+		- By looking like a normal file, many tools can seamlessly work with it
+		(not real file, doesnt exist on disk, not stored on the disk, just the software through vfs, pretending like its a file)
+		e.g., `cat /proc/cpuinfo`
+
+		CMPT433, write a driver which responds to these file reads and writes.
+
+
+syscalls are for the user level applications to talk to the kernel to give a request to the kernel
+(NOT 'syscalls allow the kernel to execute user-level applications.')
+
+start from source code -compilation-> executable -run-> running in memory
+
+Compilation vs.Interpretation
+Two major ways to run a program:
+	- Compilation (e.g. C, C++)
+	- Interpretation (e.g., Python, Bash)
+
+Poor compatibility, but better performance.
+compilation is not portable
+compile machine code.
+python is interpreted.
+write one python program once, as long as python interpreter is there, it can be used anywhere.
+
+POSIX
+POSIX= Portable Operating System Interface
+
+we are going to see the posix version of memory management
+
+in order to use the later stuff, we are going to have to the compiler, hey, we want the new stuff, otherwise it will give us the old one(for backwards compatibility)
+(#_POSIX_
+(TLA- three later acronym)
+ABI= application binary interface
+API= application Programming interface( how two programs can talk to each other)
+ABI(how ur program wants to talk to the OS)
+API is at teh code level:
+	your code calls or access the functions of the API, such as provided by a library.
+ABI is an interface for a binary ( an executable) that an OS defines.
+even if u got the basic structure the same, the actual structure, the syscalls are different.
+
+Virtualization allows..
+part(s) of our OS stack to be swapped out
+- Lets us be much more flexible!
+- Software can control the environment:
+"Spin up 3 virtual machines to host new databases"
+no longer do u have hardware -> kernel -> program
+
+..Hypervisor:
+software that provides virtualization.
+-Also called the Virtual Machine Monitor(VMM)
+-Hypervisor can run at different levels of our OS stack, giving different levels of flexibility.
+
+(in data centers, they just have the hardware and Hypervisor directly instead of os)
+
+going from wiring a circuit, to instructions loaded as data.
+
+we are making the hardware just software.
+
+VMM can sit directly atop the hardware
+-(VMM( emulates hardware for each VM( VIrtual machine)).
+- This is often used in a data center environment.
+
+On Kernel
+VMM atop the kernel
+vmm is an application running ....
+
+docker is, what if we get rid of the os inside an container.
+there is no linux kernel running inside the container.
+a container includes.. an isolated set of applications and data.
+
+process isolation(namespaces), (cgroups)
+is it really isolated
+
+'run time loadable drivers'
+
+allows application to run without using an OS kernel-> baremetal
+(NOT VMM)
+
+macos is unix or posix
+they dont't have to do contortions.
+

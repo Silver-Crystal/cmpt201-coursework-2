@@ -1,0 +1,22 @@
+
+the course was dry so let's start talking about zombies and orphans
+what happens when an application terminates
+  os retains some information of terminated process(so parent can find out reason for exiting.)
+  this takes up some memory.
+  Calling wait() on a terminated process frees this memory.
+Zombie:
+  A process state where child process has terminated  
+    but the parent process hasn't called `wait()` yet.
+      (what happens if child turn into zombies, we just call wait)
+    we make zombies and we make orphans
+
+    orphans:
+      state where:
+        child process is running
+        parent process has terminated.
+      Orphan processes no longer have  a parent process
+    Linux handling of Orphan processes
+      Orphan child process become a child process of into
+      init calls wait() on all child processes
+        init handles orphan zombies.
+

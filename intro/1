@@ -1,0 +1,202 @@
+respect.
+	(anon trolling hurts and won't be tolerated)
+
+	make sure that no one
+
+	(what you dont understand the speed of quantum entanglement)
+
+
+slide colour:
+	green : headings
+	yelllow: highlighted txt
+	blue: term being defined.
+	Sweep in
+
+	JOke
+		there are 10 types of people in the world.
+			those who understand binary and
+			those who are invited to parties.
+
+	
+
+computer scientists learn helpful dispositions such as:
+	Colloborative
+	Inventive
+	Persistent
+	Meticulous
+	.....
+
+(try to build into your process as you are writing code, to think about .....)
+
+
+
+need productive struggle to learn
+(taking a first year programming course)
+(how long will this assignment take- depends, bg, you could 'redo' in 20 mins, but it might take 3 hours, 2 and a half hours learning)
+
+Neuroplasticity allows your brain to rewire (learn) through activation.
+
+Struggling through a task helps your brain understand the task and rewire to do it better.
+
+ai gives you the answer unless you are careful, google gives u pieces of solution(with ai summary off) 
+(as you are looking at it and you don't know the answer, then know you are learning).
+
+ai is dramatically changing software development.
+- It can write code fast
+- It can provide a (good ?) analysis of code
+
+its like accelrator(g.i joe).
+it accelrated what we could do.
+
+(so if we can do more, we can be accelrated more).
+
+(Does this make software developeres obsolete).
+
+I feel that to be an efficient developer with AI you must
+1. software development..?
+2. use ai effectively
+
+Strong developers can more effectively use AI then weak developers
+AI tools generate quantity over quality.
+
+You need the skills to c what can be improved.
+
+Lecture teches us ideas but most of us learn software development best by.. writing (good ?) code
+-Assignments are how we code in this course
+
+Code a little(but of course it's wrong)
+
+skilled developer- looks at tradeoffs,
+
+d -> important
+
+everything is tied together.
+
+depends on what is wrong, sometimes we learn finding, sometimes we deciding.
+
+
+(where does ai fit in this).
+
+ai can e great for helping keep our mind open to possibilities.
+
+most of the problems we will face, ai can simply solve it and do it right away.
+
+even just handing it to ai is skipping part of the process.
+
+if you can't 
+using ai tools can disengage you from learning.
+limits what skill we can learn and stunts our growth.
+
+ai mostly understands most of the time.
+asked to refactor.
+
+dont let it make design decisions.
+don't let it write your code
+don't let it refactor code to clean it up.
+
+if ai generates anything(even if input was different) chances are the code is not yours.
+
+Don't use ai for anything you want to get better at:
+	use it as an aide to learning.
+	-Humans have to struggle to learn
+
+
+Course tries to grade learning not produced work.
+
+
+going off tangent (why does ai do things as it does)
+
+
+
+What is Systems Programming
+Low level programming that directly interacts with hardware or the OS(Operating System).
+
+Need ability to manage raw .......
+
+
+
+What are
+firmware would be systems programming( firmware )
+
+embedded system
+wifi access points.
+the screen
+vaccum cleaner.
+networking.
+core os tools.
+think about linux, terminal, config utilities.
+doesn't have to be a the kernel level, a step above that .
+what is an attribute of systems programming.
+low level of abstraction.
+
+lot more responsibility.
+if you are in a game and the program crashes, no worreis.
+but if theres a hole in the security system.
+
+spider man principle.
+
+with great power always comes great responsibility.
+
+want us to be a confident developer in low level os services.
+
+Course is very applied.
+	may(will) spend hours solving build issues and debugging complex behaviour.
+
+Course components:
+	build a mental model of user-level services of the OS.
+
+	(what can i do to interact with the OS directly).
+	understand what it is that it does for you.
+	consequences and trade offs.
+	Write low-level programs using OS services-> correct efficient, .
+
+
+	'i am not very good at programming' - get better.
+
+	Do you have the time to do that.
+	do you have the commitment
+	CMPT201 is a 4 credit hourse.
+	 3 hours per credit
+	
+	11 Labs:
+		Due Sundays; marked for completion.
+	8 Short Assignments(1st half of course)
+	- Due Thursday and Sunday each week
+
+
+
+linux command line interface
+
+Processes and threads
+Memory management
+Virtual memory
+Schdeuling
+Synchronization
+Storage and file system abstractions
+communication abstractions such as IPC, sockets, ....
+
+
+solid programming skills, write functions, loops, if, arrays, pointer, input/output.
+	(who have had a stronger background in programming will find the long assignments straightforward).
+	Solid understanding of C or C++ programming.
+
+Passign prereq does not make this an easy course.
+
+Lower grades in prereq.
+
+Course is opinionated about good coding.
+
+Focuses on Linux command-line interface.
+(will be awakward to start)
+
+doing a lot of bigger operations at once.
+
+you may not love this approach, but it will expand.
+
+Highly recommended boox
+The linux programming interface:
+a linux and UNIX System programming Handbook,
+Michael Kerrisk 2010
+
+
+

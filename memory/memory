@@ -1,0 +1,256 @@
+malloc family
+malloc allocation /deallocation
+
+a9 is about implementing 
+
+
+
+honest trailer(yt channel)
+
+(a8, shell/process hell)
+a9 pointer hell
+a10 thread hell
+a11 map reduce
+a12 block chain
+
+
+we are not talking about physical memory, we are talking about physical memory.
+
+u have used arrays, linked lists, pointers.
+
+yk what malloc and free in c
+
+how to implement single and doubly linked list.
+
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+/* Create a new node with the given data */
+struct Node *createNode(int data) {
+    struct Node *newNode = malloc(sizeof(*newNode));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+/* Insert a new node  at the end of list */
+void append(struct Node **head, int data) {
+    /*Code together! */
+    /* keep moving until we get to NULL pointer, then call malloc, get myself a new struct, fill it in with new data */
+}
+
+/* Traverse and print the linked list */ 
+void traverse(struct Node *head) {
+    /* Code together ! */
+}
+
+int main() {
+    struct Node *head = NULL;
+
+    /* Append elements to the list */
+    append(&head, 1);
+    append(&head, 2);
+    append(&head, 3);
+
+    /* Traverse and print the list */
+    printf("Linked List: ");
+    traverse(head);
+
+    struct Node *current = head;
+    while (current != NULL) {
+        struct Node *temp = current;
+        current = current->next;
+        free(temp);
+      }
+      head = NULL;
+
+    return 0;
+  }
+
+
+the idea of encapsulation holds even in c(not just c++)
+/* free list should be outside main */
+well modularized, reusable.
+
+starcraft, was released quite late, stored everything in linked list, so it took a long time for them to debug
+
+global and static data. 
+BSS Block Starting Symbol
+
+starts from 0x000, first text-> Code,
+then above that we have Data(initialized)
+then BSS(Block Starting Symbol, uninitialized)
+above it is heap, that grows up
+
+the heap is growing up and stack is growing down.
+memory mapping-> libc, libpthread....
+
+
+the program break delineates the end of the heap, if heap is full, or we need more, then we just push the
+program break up .
+
+brk and sbrk
+
+program break is actually not the end of the heap, its the end of bss, then it is moved up.
+
+
+
+was working on embedded system, baremetal, tiny little os, could buy for 100 bucks, was doing multi threading, 
+4k of memory.
+
+
+Os moves the program break higher to expand the heap
+
+brk moves to an absolute address, sbrk moves by relative address.
+
+if you are trying to allo
+
+
+we get 2 million bytes, so now we can do world domination.
+
+malloc, says, let me check my horde, then it asks
+
+hey kernel *give me 2 million bytes* (in a funny/weird voice kekw)
+
+malloc uses sbrk in the kernel to get big blocks of memory at once.
+
+malloc hands out small peieces of memory for each request.
+
+and when we call malloc, it will hand the memory to us.
+How can malloc do that
+  allocation strategies!
+  Deallocation strategies!
+
+  i ask for 100 bytes, 100 bytes, 100 bytes, fragmented memory
+
+
+Memory Allocator: manages the heap
+
+  for each allocation request,
+    returns a poitner to an unsused or free region inside the heap.
+  tracks which parts of the heap are not used
+  
+Fragmentation:
+  over time the application allocates and frees memory regions
+  fragments memory
+
+
+we can not just move all the used space to the bottom or just move the used blocks around, 
+
+Track free regions(blocks) in ...
+  a linked list of free blocks.
+  
+  we have a pointer to memory in the heap in the program, but we dont have that pointer when we haven't freed.
+  its a memory leak.
+
+  we don't need to track it, but when the user calls free, then we know, oh! this is what was allocated, so we check the header, then
+  we free it and coalesce if we need.
+
+  constant times insertion, head insertion.
+
+      
+      does anyone ever use brk ? maybe sbrk uses brk under it ?
+  
+  whenever we malloc a block, we modify the block and then we can also throw a header for the free part
+  so we can not do that if the size is not enough
+
+
+  assignment9 -> maybe some check such as, size >= needed + sizeof(header)
+
+Linked List Management
+  Free Blocks Linked List:
+    linked list of free blocks.
+    ..Head points to the most recent free block.
+
+  Basics of allocation-> malloc()
+    .. Pick a free block from the linked list
+    Remove it from the linked list
+    SPlit the free block into two blocks: allocated and free
+
+
+
+
+In every linked list program, when we want a new ... we call malloc, how do we do that for malloc.
+
+we use an in place linked list.
+  create an header on each free block.
+  we track the size of the block and the pointer to the next block.
+  we are just going to stamp every free block .... with a pointer to the next block.
+
+
+  each free block has the same header
+    8 bytes size, 8 bytes next
+
+  start with header 
+    16 bytes get sucked up by the header.
+    0-15-> header,
+    size=256,next = null
+    size of the block is -> size of the header, + how much is in free
+    size = free + header
+    then allocate header
+    we have 
+
+
+    we only have to check before or after, and if we keep coalescing we only have to check a few times.
+
+    drawing a regular linked list is conceptually easy.
+    now we are thinking of physical addressses in contiguous memory.
+    we got a physical space and a string on our table.....
+    what happens with allocated blocks., we do not care about it, it is just 
+    
+  External Fragmentation
+    we have got enough space, but the blocks are too small, 
+    even if total free memory is enough u might not have one contiguous free block to satisfy an allocation request.
+  Coalescing:
+    process of combinign consecutive free blocks into bigger blocks, we only need to do this when s1 frees a block.
+    O(n), so only need through it once.
+    
+  Internal fragmentation:
+    free virtual memory, large block sizes.
+    similar problems 
+  
+Allocating memory:
+  basic ...
+  traverse the list of free blocks.
+  Find 'Big Enough' block.
+  split block intow 2 blocks.
+  Allocated Block:
+  
+  Extra space
+  New head
+
+
+First fit
+  (u are on a desert island, u are writing a memory allocator, ....)
+  find the first block that is big enough.
+Advantage:
+  simple, fast
+Disadvantage:
+  pollute the beginning of the free list with small blocks.
+  leads to more search time for bigger allocation requests.
+
+Best-fit:
+  At least big enough, but the smallest big enough.
+
+Advantage:
+  reducing wasted memory space.
+Disadvanteage:
+  Speed:
+    must search the entire list.(unless ordered by size, but sorting itself has additional complexity.)
+  small pockets() ?
+  
+
+Worst-fit:
+  Find the largest free block, which is the worst fit.
+
+Advantage:
+  produces large leftover free blocks
+Disadvantage:
+  must search the entire list.
+
+worst case(free a bunch of blocks, and then free every other one).
+maybe just doing randomly could be better.
+

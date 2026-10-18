@@ -1,0 +1,112 @@
+the idea that some think, we can make programs never crash with signals
+but its like blackbox(which is actually orange coloured), we say why not make the airplane from that 'indestructible' material(u can't too heavy and stuff like that)
+
+
+Signals are..
+  notifications with specific meanings.
+    Programs and the kernel can send signals to itslef or other programs.
+Wonka Golden Ticket Example
+  Parent proces spawns children to search for a golden ticket.
+    (keep doing this until we find the golden ticket, so need to signal)
+
+
+  Pseudo coloured
+  Parent
+
+  handler() {
+      print "Found ticket!"
+    }
+
+    main() {
+        pid = fork()
+
+        if (pid != 0) {
+            register signal handler
+            wait forever
+          }
+      }
+
+main() {
+    if (pid != 0) {
+    }
+    else {
+        if (found_ticket()) {
+            signal parent
+          }
+      }
+      }
+  }
+
+      what if for some reason the parent is slow, so the child finds the ticket in the first box, but the handler is not registered.
+
+sigaction(...) -> register signal handler 
+kill() -> signal parent
+
+(was he suggesting that we register the handler at the beginning or before fork, and then unregister when we reach the child process.)
+
+
+function pointer, holds the address to a funciton.
+3 functions, how to escape in an emergency, how to steal your neighbours chocolate bar, to wake up ur buddy .
+
+
+(pointer to an object that defines an interface) -> in c++
+
+in c-> callback function, function pointer here.
+
+variable named my_function, and points to a function.
+
+have u ever tried to call a function and forgot the brackets at the end. that is the function pointer.
+
+Imagine an embedded system receiviing bluetooth data.
+  How does the bluetooth module/library
+    ... tell the rest of the system there is data available?
+
+        now could hardcode, that call brian's special handler function call.
+      going to hand them a function pointer.
+
+      Idea 1:
+        Application just keep asking it! (like asking everyone do u have a question in a loop)
+        Slow, power hungry!
+      Idea 2:
+        interrupt(raising a hand and asking a question)
+
+
+function_pointers.child
+
+#include <stdio.H>
+
+void happy(int score) {
+    printf("%d is great!\n", score);
+}
+
+void sad(int score) {
+    printf("%d sucks!\n", score);
+}
+
+int main() {
+    // Declare function pointer variable
+    void (*my_function)(int);
+
+    /* Change value, just like a variable; no () */ 
+    my_function = happy;
+
+    for (int i = 0; i <10; i++) {
+        // Call it 
+        my_function(i);
+      }
+      return 0;
+}
+
+functions are just calling function_pointers
+
+
+signals with fork, 
+we have a pointer but duplicated the entire space, so signal handler stays registered.
+
+ctrl+c is sent to a group, the foreground process group, which contains parent and children.
+
+so parent and child sigint signal handlers will run
+
+exec() removes all signal handlers
+
+(u can do all of assignment 8 now, using signal.)

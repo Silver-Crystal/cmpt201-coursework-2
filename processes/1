@@ -1,0 +1,66 @@
+you might make cache aware program that try to optimize cache, but we can not manage it.
+a lot of what we are going to talk about is going to be in memory.
+
+cpu can execute instructions from memory.
+
+
+our program/executable file is stored on disk. main memory really close to the cpu, then hard drive is slow
+(but cpu's perspective, even memory is slow)
+program exists on disk, its going to be loaded into memory for cpu to run(technically also loaded into cache)
+to start executing a program, the os will create a space in ram for the program to run.
+naively you can forget about all other complexities, we can say part of it is going to be instructions(add, push ....)
+what kind of things we are going into data. stacks and dynamic (two major ways to work with...)
+load machine code from hard drive into memory.
+create area in memory for data, (stack, heap)
+start executing from memory.(change PC[program counter] to change things up.
+in order to control a process, programmer will use a sys call, 
+
+Core process syscalls include:
+fork()
+	creates a new process by cloning the current one.
+exec()
+	replace the current process with another executable
+
+wait()
+	wait until a created process finishes its work.
+
+
+might want to spawn a process to do smth, then call wait, exec does something, returns, 
+then child is done, os tells that to the parent.
+
+difference between a process and a program.
+
+
+reading a man page -> primary way to learn functions/system calls for systems programming
+
+it takes practice to effectively read a man page
+
+man page gives you the concise explanation
+
+when we get to the man page,
+check
+is this waht i want, is this what i really want
+
+how do i call it
+
+
+is this what i want:
+		read description skill
+	(the code that makes git has banned a number of c calls, so easy to shoot urself in the foot, if you hand me something ,and it s not nulll terminated, then i am going to do what i want)
+
+how do i call it
+	read synopsis (prototype)
+
+
+what can it go wrong:
+	(like returns converted value or 0 on error
+
+
+used for output parameters
+
+use of **
+	calling code is passing in the address of their pointer
+
+	space ascii is 32, A/a is 65
+
+

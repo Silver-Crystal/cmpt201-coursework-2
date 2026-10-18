@@ -1,0 +1,55 @@
+ a change in variable in one process does not affect others.
+
+multi threaded programs, one process, ...
+
+
+Making a new process:
+	initial process (the,,)
+
+	an identical copy of the calling process.
+	-fork() is called once, but .. it returns twice!
+	1. initial process (parent), just as we expect
+	2. in the new process(child)!
+
+Analogy: its like waking up after being cloned.
+	-are u the original person?
+	- are u the clone?
+
+fork() returns a process id(PID)
+	- for the parent.... fork() returns the process id of the child.
+
+o
+
+when called exec, will :
+remove the currently running program
+load a new program into memory
+start executing the new program.
+
+(the child can ask who the parent is, but can not interfere 
+
+
+exec()
+
+	execl(), execv()
+	execlp(), execvp()
+	execle(), execvpe()
+
+	for l, will have comma seperated arguments 
+
+	if we go v, v means vector.
+
+	thre reason is, every program you write, by convention, the first argument, is your program name on disk, arg
+
+	execlp-> p means we will search path for the command. p -> path
+
+(for execlp, we said the arg[0] needs to be the program name on the disk
+
+(some programs care about arg[0], ask him later after class)
+
+when we call exec, 
+
+any time we call exec, we need to have that initial sttuter.
+
+last argument is going to be (NULL)
+
+

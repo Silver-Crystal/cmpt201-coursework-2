@@ -1,0 +1,75 @@
+
+preemptive-> managed by cpu.
+
+non-preemptive-> a process gives up the core when it 
+  terminates or 
+  waits for an operation that takes a long time
+
+  relies on a process being friendly.
+  (infinite loop -> unfriendly, simply holding the processor for the rest of life.)
+
+preemptive scheduling->
+  the kernel stops a process at any time.
+  kernel has a timer running, when timer is up
+
+  windows 3.1
+  before macos went to linux/unix, it was pre emptive. better hope that you have friendly programs.
+
+Preemptable kernel 
+  everytime u do a syscall, your process is running, the kernel starts doing work for u, in ur process time.
+  a lot of time kernel can't be preemptive.
+
+  Linux kernel got this in Sept 2024, PREEMPT_RT, linux real time kernel.
+  linux itself can preempt itself to let smth else run.
+
+
+We want to maximize:
+  cpu utilisation
+    (imagine scheduling algorithm, leaving swing empty for half the recess, doesn't make sense)
+  throughput
+  throughput or thorougput
+
+minimise: 
+  turnaround
+  waiting time
+  response time
+      -> u did an action and it immediately responds.
+
+  anti-lock brakes.
+    detect the wheel is locked, and .....
+    lot of applications we try to optomize/minimize the response time.(embedded system)
+
+
+
+
+FCFS (first come first served)
+
+data structure that implements this-> queue, (FIFO is NOT a data structure, queue is the data structure)
+
+if we want to analyse something, some algorithm, then choose FCFS :rofl:
+
+SJF (Shortest job first).
+  long process doesn't sabotage others.
+  it checks the remaining processes time, and then picks the process with shortest time remaining.
+
+  7 4 1 4
+  0 2 4 5
+
+  so first 0-7->p1, 8->p3, 9-11-> p2, 12-16-> p4
+
+(priority queue we tend to talk about other things, like processes, not really scheduling, this wouldnt be there)
+
+p1-> 0
+p3-> 3, 
+
+
+Shortest remaining time first (SRTF)
+(what if we get 3 processes, x is big, y is smaller, but bigger then the remaining time, then z,.. nvm )
+
+that minimizes wait time but we also care about other things.
+
+Round robin(RR).
+don't care how long a process is, we just do turns.
+either they are done (early) and they hop off.
+or when time runs out, they are removed and put back in line.
+

@@ -1,0 +1,61 @@
+
+    Run:
+      man errno
+
+      errno is like the ultimate global variable, it is thread specific.
+      any call to a syscall may set an error number.
+      set by sys call.
+
+      what is its type ? int 
+
+    Errno is an integer variable that is set by system calls and library functions when there is an error.
+      Adds more information about which error has occured.
+      Defined in errno.h 
+      C can print an explanation for you from just the errno using perror("your message here")
+
+      perror and exit often go gether.
+
+      if (somecall() == -1) {
+          if (errno = EACCESS) {
+              printf ("You don't have access.\n");
+          } else {
+              perror("somecall went wrong");
+            }
+          }
+      }
+
+
+      fork-bomb with error
+      fork() sets errno on failure
+      
+#include <errno.h>
+#include <stdio.h>
+#include ,unistd.h>
+
+int main() {
+    while(1) {
+        if (fork() == -1) {
+            char *str = NULL;
+            switch (errno) {
+                case EAGAIN:
+                  str = "EAGAIN";
+                  break;
+                case ENOMEM:
+                  str = "ENOMEM";
+                  break;
+                case ENOSYS:
+                  str = "ENOSYS";
+                  break;
+
+              }
+          }
+      }
+  }
+
+  in java you catch the error and throw the error, and then u do error handling.
+  
+  in networking u do 6-7 calls, and you don't check the errors, then you won't know what went wrong
+
+Summary, 2,3, 4:
+waiting on children:
+wait() ,waitpid()
