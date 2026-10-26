@@ -28,3 +28,15 @@ semaphores
 
 what is a lock.
 
+
+will often define lock variables(*whispers* these will often be global, don't tell anyone)
+
+mutex-> mutual execution
+pthread mutex library.
+underscore t stands for a typedef, could be int, pointer, or anything else,
+(going to define a variable which just 'rolls off the tounge')
+pthread_mutex_t
+
+(reason for passing pointer, either we want to modify it, or we want to prevent having to copy it, so save resources)
+hardware guaranatees, that only one thread will lock it.
+one succeeds, and everybody else fails
