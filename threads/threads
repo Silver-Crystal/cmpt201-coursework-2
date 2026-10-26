@@ -1,0 +1,30 @@
+thre
+
+synchronization refers to coordinating the execution among different threads.
+*Careful* synchronization avoids difficult to debug race cases.
+
+8 bit microprocessor, running at 12 megha hertz
+40 k of ram, very small
+how often battery did things, logging mechanism.
+counting, statistics
+5 times, or 10 times.
+every 10 sec, we would go in and update the time stamp.
+
+had already shipped it
+were sitting 
+(every time we triggered discharge, we would log an event)
+(if we happened to discharge)
+(a data race instead a 12 megahertz processors )
+(with one battery on a test for maybe an hour)
+(when u started to run 45 batteries, left them for a week)
+
+must reason about multiple threads, not just single path's correctness.
+no longer able to consider a single path and the correctness of that path.
+have to consider multiple threads.
+
+locks(mutex)
+condition variables
+semaphores
+
+what is a lock.
+
