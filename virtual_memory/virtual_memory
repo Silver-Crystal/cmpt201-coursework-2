@@ -124,3 +124,202 @@ physical memory divided into page frames(or frames)
   Example:
   8KB of meory with 4KB page size = 2 frames (#'s in binary)'
 
+we are going to have powers of 2, so we can just cut the address.
+will be able to divide it into two parts,the page number and the offset.
+
+if i tell u my address
+
+  4 pages, 16 kb
+  16 byte
+  4 pages need -> 2 bits to pick between pages.
+  16 bytes-> 4 bits of offset into the page.
+
+  need a 6 bit virtual address.
+  top 2 -> page numbers, and bottom 4 being offset.
+
+how does hardware split it ?
+theey are physical wires(the bits are), so it just re routes the wires.
+
+to translate we have to translate the page number, not the offset.
+
+
+question-> consider a computer where 
+  each page is 32 bytes, -> 6 bits
+  have 8 bytes. -> 3 bits
+
+100b was translated ?
+when  a process accesses a virtual address, paging translates the address's page number to a page frame number.
+
+The offset does not change.
+and thats the really powerful part, the hardware doesnt need to map every pointer, just the pages.
+
+and know only the page table.
+Kernel maintains a page table per process.
+- Maps page number(virtual) to a 
+  page frame number(physical).
+
+assume 16 byte pages. ->> 4 bits
+
+address is 6 bits, therfore page is 2 bits(upto 4 pages)
+Page -> 10b
+Offset: 1011b   (unchanged)
+
+page number is the thhing that is going to be mapped.
+
+there are vastly more (virtual) pages than (physical) pages frames.
+  cannot map all pages to frames at once.
+
+Hardware supports converting pointers from virtual to physical addresses.
+
+Os configures the page table  -. even the table is also paged(even if the page size was also 4 mb?)
+
+Page table size
+  if the page numbers use n bits,
+    the maximum possible number of pages is 2^n
+
+  if offset use m bits
+    the page size is 2^m.
+    total number of bits in address: n+ m
+
+  For example,
+    Page size 4 kb, on a 32 bit architecture.
+    m = ..
+    n - ..
+    Therfore can have 2 ^20 pages.
+    This is 1M pages.
+
+remember 1kb is 1024, 2^10
+
+and then 4 k, need 2 extra bits, so 2^12 = 4096.
+
+
+
+will do slides 35-40 next week, right now from 41
+slide 41
+out of memory.
+  Limited physical memory but virtual memory space is vast!
+  Can't bring in all virtual pages to physical memory.
+  what do we do?
+Demand paging & swapping
+  Demand  paging:
+    ... a page is brought into memory only when needed.
+
+  Swapping:
+    if we don't have any free page frame, kick out a  page already in memory to disk and bring in the new page.
+  Swap space:
+    disk space dedicated to store swapped-out pages.
+
+
+How do we decide which memory page to swap out(the victim)?
+  need a page replacement algorithm.
+
+
+Demand paging:
+  Why does demand paging work?
+    -Insight:.. A typical program only accesses a small protion of its memory space.
+    - This is based on the locality of access.
+  Recall:
+    - Temporal Locality: if a program accesses a memory location, it is likely that it's going to access it again in the near future.
+    - Spatial locality:  if a program accesses a memory location, it is likely that it's going to access other memory locations nearby.
+
+  .. Paging leverages spatial locality:
+    When a memory location is accessed, it brings in the region that the location belongs to, not just the specific memory location.
+  Demand paging & swapping leverage temporal locality:
+    - ..recently used pages are already in memory.
+
+    LRU-> 
+    Least recently used/ 
+    1-> that was used last, or 2-> the one that has the lowest number of accesses.
+
+Page Replacement Algorithms
+  Page Fault
+    - when a memory location is accessed but
+      .. the corresponding page is not found in physical memory.
+
+
+
+Optimal Page Replacement Algorithm 
+   .. picks the page that we will not be used for the longest time.
+  - This assumes we know the future(impossible)
+
+
+Example:
+  Memory has 4 page frames.
+  Memory page access order ( by page number):
+  1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5
+
+
+Page Faults: *  *   *   *           *               *
+Page Access: 1, 2,  3,  4,  1,2,    5,  1,2,3,      4,    5
+
+
+
+Page Replacement:                   4               1
+
+6 page faults, 2 page replacements
+
+
+FIFO (First In, First Out)
+  - Keeps track of when a page was brough in to memory.
+  - ..The first one that was brought in gets swapped out first.
+
+Page Faults: *  *   *   *           *   * * *       *     *
+Page Access: 1, 2,  3,  4,  1,2,    5,  1,2,3,      4,    5
+
+
+
+Page Replacement:                   1   2 3 4       5     1 
+
+10 page faults, 6 page replacements.
+
+This is simple, but does not consider the principle of locality.
+
+LRU(Least Recently Used)
+   .. Replace the page that has not been used ofr longest period.
+    - It tries to approximate the optimal algorithm.
+    - It tries to infer the future based on past.
+
+Page Faults: *  *   *   *           *   * * *       *     *
+Page Access: 1, 2,  3,  4,  1,2,    5,  1,2,3,      4,    5
+
+
+
+Page Replacement:                   3   4 3 4       5     1 
+
+
+
+
+segmentation is more like allocating memory in the heap, cant move them.
+paging is like, bringing in  pieces and putting thm together
+
+
+lifo effs us up with spatial locality, 
+lru is expensive.
+
+
+1 2 3 4       5   2   4   5  1   5
+1, 2, 3, 4 ,  5,             6,  
+
+caches have dirty bits to set, so second chance has the ref bit
+            replace 1,      replace3, 
+
+
+
+chrome does this, every tab in chrome is a process, so if one tab goes down, there's no way for 
+
+
+this thread 
+theres a thread that is watching the light button, and takes 7-8 seconds to respond, cause its talking to the server in burnaby.
+two threads of execution running in parallel.
+does kernel handle it or c.
+has to be kernel.
+
+user level thread library vs kernel level thread supportsteh challenge-> every time u want to make a change or swap, have to do syscalls, go through  ...
+node js waits for nothihng, everything is running as an event that happens in the future.
+instead use user library (sometimes, like in javea) and then the runtime handles it.
+            process-> memory isolation
+
+
+    pthread_exit()
+            return 0;
+    pthred_self() 
