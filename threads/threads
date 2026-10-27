@@ -11,7 +11,7 @@ counting, statistics
 every 10 sec, we would go in and update the time stamp.
 
 had already shipped it
-were sitting 
+were sitting
 (every time we triggered discharge, we would log an event)
 (if we happened to discharge)
 (a data race instead a 12 megahertz processors )
@@ -40,3 +40,5 @@ pthread_mutex_t
 (reason for passing pointer, either we want to modify it, or we want to prevent having to copy it, so save resources)
 hardware guaranatees, that only one thread will lock it.
 one succeeds, and everybody else fails
+
+we dont want to add pthread
