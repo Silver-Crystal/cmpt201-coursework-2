@@ -42,3 +42,125 @@ hardware guaranatees, that only one thread will lock it.
 one succeeds, and everybody else fails
 
 we dont want to add pthread
+
+
+a lock is just a tool, it doesn't protect smth specific, there's nothing really protecting it, it's
+just locked away at that time when we are accessing INSIDe lock unlock block.
+
+Can have multiple locks:
+  if they are protecting independent shared variables.
+    e.g a system might have:
+    (and currently bringing down NGINX)
+
+    accessing
+
+    thrown the baby out with the babywater to say .
+    accessing one resources makes it so that other resources can not be accessed.
+
+    so can do parallel programming, just with seperate things that are not mutually exclusive.
+
+    non-Blocking lock:
+      something that is a optional thing, something that u are trying with this, but can also try
+      with other.
+      pthread_mutex_trylock()
+        try lock, if it doesnt work, go do something else, maybe try some other lock
+      pthread_mutex_timedlock()
+        willing to wait x time and if its not free, then ill go do smth else.
+
+  Critical Section(CS):
+    piece of code that accesses a shared variable.
+    a shared resource.
+    must not be concurrently executed by more than one thread.
+    --From OSTEP.
+
+    only one thread should be allowed to run in the CS( at a time)
+
+    thread should eventually complete(i.e., make progress).
+      Dont want one child to wait indefinitely.
+    Bounded waiting:
+      An upper bound must exist for the amount of time a thread waits to enter CS.
+
+
+    forgetting to unlock mutex, or continuously doing work
+
+  Thread safety & Reentrant:
+    thread safe function:
+      a funtion that multiple threads can run safely.
+    It either:
+      a) does not access shared rosources or
+      b) provides proper protection for VS that acess shared resources.
+
+      static-> can only access from inside the .c file.
+      it's just gonna mean no code outside of ur .c file call that helpre function.
+
+      c's version of private.
+
+
+      the function only uses local variables and not local variables.
+      if the parameter comes as a copy, then its fine....
+
+    Reentrant:
+      in most of the life, thread safe and reentrant are going to be very similar.
+
+      reentrant function is a function that produces the correct output even while called again
+      while executing.
+
+      signals and interrupts.
+      must work with different threads(thread safe), and also
+        .... the same thread( such as in a signal handler).
+      problem with using printf inside our signal handler, we could have been partway throuch a
+      print statement in amin. then signal might come and interrupt, they both run on the same
+      thread, same stack.
+      hard to make that work if u have a shared resources.
+      a signal that is called by main and teh signal handler also uses it... then,
+      if they are doing it mutually exclusiveely
+
+      anything that is NOT thread safe is also not reentrant.
+
+
+      'dad what are clouds made of, 'linux servers mainly' :rofl:'
+
+      reentrant, sometimes u can say
+
+      ur interrupts and signal handlers need to be real short. don't make the signal handler call
+      much.
+
+      two functions that share no resourcew with anybody else, are both thread safe and reentrant.
+
+      static local variable maintains its value.
+      static local variable is basically a global variable (saved in data probably caused
+      initialised) just that it cannot be used outside.
+      so it is NEITHER thread safe or reentrant.
+
+      is thread safe: no shared data
+      is reentrant : no saved or shared data(the calling code hasn't given us
+
+      snprintf -> not signal safe.
+      strtok_r ->
+        use a shared global buffer.
+        use a shared thread local buffer(printf)
+
+        if u share a buffer with s1 else, u are not reentrant.
+      possible reentrant solutions:
+        allocate buffer on stack. fine for small buffers, not good for big buffers.
+        dynamically alocate and free new buffer in the heap.
+        have calling code allocate space and pass it in.
+      Caller allocates technique.
+        strtok_r -> reentrant _r.
+        - .. any space returned to caller or maintained across function calls is allocated by the
+          caller.
+
+        snpritnf is not signal safe, -> there's no guarantee that it doesnt ....
+  deadlock:
+    a condition where a set of threads
+      each hold a resource and wait to acquire a resource held by another thread.
+    The threads get stuck and make no progress.
+      (os can solve that... how ? by killing one of the threads.... don't do that in a game with ur
+      kids)
+
+    E.g:
+      create mutex locks A & B
+      Thread 1: locks A
+      Thread 2: locks B, then blocks trying to lock
+
+
