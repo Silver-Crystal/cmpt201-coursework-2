@@ -1,0 +1,34 @@
+S_I ...... : stat on inode
+
+R: Read
+W: Write
+X: Execute
+
+USR:: user 
+GRP: group
+O_RDONLY, O_WRONLY, O_RDWR, O_APPEND, O_CREAT< O_NONBLOCK 
+
+O_IRWXU, S_IRUSR, S_IWUSR, S_IRWXG 
+s stands for stat, i for inode
+will use stat syscall to ask for a struct. then 
+either we do read write execute, or we do or 
+so just or individual ones 
+(for read and write, NOT O_IRWUS instead use O_IRUSR | O_IWUSR and stuff like that)
+
+
+0-> stdin 
+1-> stdout
+2-> stderr
+?
+
+number of bytes written may be less than count.
+
+(we prolly can not do lseek on stdout)(
+so maybe nth like do that..... like write a sentence to stdout, then use lseek to go back to the start and then overwrite and write a new line.
+
+)
+
+fcntl
+jack of all trades, for doing all the other file operations.
+
+
